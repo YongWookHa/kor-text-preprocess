@@ -10,7 +10,7 @@ This repository contains codes for korean text preprocessing. There are several 
 * `mecab` is for morphological analysis. It provides `morphs`, `nouns`, `pos` functions for your korean text data and of course, each are selectable by additional option.
 Check [KoNLPy](http://konlpy.org/en/latest/) out in detail.
 
-* `NLP` for text data templating for certain task. For now, `next_sentence_prediction` task is only available. But other task templates will be added in the list.
+* `NLP` for text data templating for certain task. For now, `next_sentence_prediction` template is only available. It arranges two sentences in a line with seperator [SEP]. Please read the description in `src/tasks.py`. Other task templates will be added in the list. 
 
 ## Environmnet
 Ubuntu 16.04 _(`Mecab()` class of konlpy is only provided on linux)_
@@ -22,12 +22,12 @@ Ubuntu 16.04 _(`Mecab()` class of konlpy is only provided on linux)_
 
 ## Usage
 ```
->python main.py -i "input_file" -o "output_file" -e 'utf8' \
-                |-opt   |"mecab"    |-m |"morphs"                   |    |
-                |       |           |   |"nouns"                    |    |
-                |       |           |   |"pos"                      |    |
-                |       |"clean_kor"|   |                           |    |
-                |       |"nlp"      |-n |"next_sentence_prediction" |-ms |  0
-                |       |           |   |                           |-s  |  "다."
+> python main.py -i "input_file" -o "output_file" -e 'utf8' \
+                |-opt   |"tokenize" |-tm    |"mecab"                    |-mec|"morphs"
+                |       |           |       |                           |    |"nouns"
+                |       |           |       |                           |    |"pos"
+                |       |"clean_kor"|       |                           |    |
+                |       |"template" |-t     |"next_sentence_prediction" |-ms |0
+                |       |           |       |                           |-s  |"다."
 ```                                                            
 
