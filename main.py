@@ -1,15 +1,16 @@
 # -*- coding:utf-8 -*-
 
-from src.mecab import mecab
-from src.clean import clean_kor
-from src.nlp import NLP
+from src.tokenize import Tokenizer
+from src.clean import Clean_kor
+from src.template import Template
 import argparse
 import os
 
 if __name__ == "__main__":
-    opt_availables = ['mecab', 'clean_kor', 'nlp']
-    mecab_availables = ['morphs', 'nouns', 'pos']
-    nlp_availables = ['next_sentence_prediction']
+    opt_availables = ['tokenize', 'clean_kor', 'template']
+    token_availables = ['mecab']
+    method_availables = ['morphs', 'nouns', 'pos']
+    task_availables = ['next_sentence_prediction']
 
     parser = argparse.ArgumentParser()
 
@@ -19,32 +20,40 @@ if __name__ == "__main__":
                         type=str, default=None, help="output file dir")
     parser.add_argument("-opt", "--option", \
                         required=True, type=str, default=None, \
-                        choices=opt_availables, help="which refine option to apply")
-    parser.add_argument("-m", "--mecab_method", \
-                        choices=mecab_availables, type=str, default=None, \
-                        help="which mecab method to apply")
-    parser.add_argument("-n", "--nlp_task", \
-                        type=str, default=None, choices=nlp_availables, \
-                        help="which nlp task to apply")
+                        choices=opt_availables, help="which option to apply. \
+                            Select in {}".format(opt_availables))
+    parser.add_argument("-c", "--tokenize_class", \
+                        type=str, default=None, choices=token_availables, \
+                        help="which tokenize method to apply. \
+                            Select in {}".format(token_availables))
+    parser.add_argument("-met", "--method", \
+                        choices=method_availables, type=str, default=None, \
+                        help="which class method to apply. \
+                            Select in {}".format(method_availables))
+    parser.add_argument("-t", "--task", \
+                        type=str, default=None, choices=task_availables, \
+                        help="which task to apply. \
+                            Select in {}".format(task_availables))
     parser.add_argument("-ms", "--min_seq", \
                         type=int, default=0, help="Minimum length of sequence")
     parser.add_argument("-s", "--sep", \
-                        type=str, default='다.', help="which nlp task to apply")
+                        type=str, default='?.', help="Separator for spliting sentences")
     parser.add_argument("-e", "--encoding", \
                         type=str, default='utf8', help="encoding of input file")
 
     args = parser.parse_args()
 
-    if args.option == 'mecab':
-        m = mecab(args.mecab_method, mecab_availables)
-        m.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
-                 encoding=args.encoding)
-    elif args.option == 'clean_kor':
-        c = clean_kor()
-        c.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
-                encoding=args.encoding)
-    elif args.option == 'nlp':
-        n = NLP(args.nlp_task, nlp_availables)
-        n.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
-                min_seq=args.min_seq, sep=args.sep, encoding=args.encoding)
+    os.makedirs(os.path.dirname(os.path.normpath(args.output)), exist_ok=True)
 
+    if args.option == 'tokenize':
+        opt = Tokenizer(args.tokenize_class, args.method)
+        opt.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
+                encoding=args.encoding)
+    elif args.option == 'clean_kor':
+        opt = Clean_kor()
+        opt.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
+                encoding=args.encoding)
+    elif args.option == 'template':
+        opt = Template(args.task)
+        opt.apply(os.path.normpath(args.input), os.path.normpath(args.output), \
+                min_seq=args.min_seq, sep=args.sep, encoding=args.encoding)

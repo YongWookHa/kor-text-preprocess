@@ -8,3 +8,4 @@ class Refine():
             while line:
                 yield line
                 line = f.readline()
+                

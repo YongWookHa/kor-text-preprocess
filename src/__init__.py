@@ -1,4 +1,4 @@
-from .clean import clean_kor
-from .mecab import mecab
-from .nlp import NLP
+from .clean import Clean_kor
+from .tokenize import Tokenizer
+from .template import Template
 from .utils import Refine

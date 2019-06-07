@@ -2,7 +2,7 @@ from .utils import Refine
 from tqdm import tqdm
 import re
 
-class clean_kor(Refine):
+class Clean_kor(Refine):
     def __init__(self):
         super().__init__()
         self.sub1 = re.compile('[^ .?!/@$%~|0-9|ㄱ-ㅣ가-힣]+') # 한글과 띄어쓰기, 특수기호 일부를 제외한 모든 글자
@@ -29,3 +29,4 @@ class clean_kor(Refine):
                         continue
                     out.write(cleaned+'\n')
         print("process done, saved at {}".format(out_path))
+        
