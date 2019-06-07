@@ -22,12 +22,16 @@ Ubuntu 16.04 _(`Mecab()` class of konlpy is only provided on linux)_
 
 ## Usage
 ```
+> python main.py -h
+> <help message>
+
+ex)
 > python main.py -i "input_file" -o "output_file" -e 'utf8' \
-                |-opt   |"tokenize" |-tm    |"mecab"                    |-mec|"morphs"
-                |       |           |       |                           |    |"nouns"
-                |       |           |       |                           |    |"pos"
-                |       |"clean_kor"|       |                           |    |
-                |       |"template" |-t     |"next_sentence_prediction" |-ms |0
-                |       |           |       |                           |-s  |"다."
+                |-opt   |"tokenize" |--mecab|--morphs   |
+                |       |           |       |--nouns    |
+                |       |           |       |--pos      |
+                |       |"clean_kor"|       |           |
+                |       |"template" |--nsp  |-ms        |0
+                |       |           |       |-s         |"다."
 ```                                                            
 
