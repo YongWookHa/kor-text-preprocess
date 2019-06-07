@@ -1,15 +1,21 @@
 from .utils import Refine
 from tqdm import tqdm
 import re
+from os.path import normpath
 
 class Clean_kor(Refine):
-    def __init__(self):
+    def __init__(self, args):
         super().__init__()
+        self.args = [normpath(args.input), normpath(args.output), args.encoding]
+
         self.sub1 = re.compile('[^ .?!/@$%~|0-9|ㄱ-ㅣ가-힣]+') # 한글과 띄어쓰기, 특수기호 일부를 제외한 모든 글자
         self.sub2 = re.compile('[\s]+')  # white space duplicate
         self.sub3 = re.compile('[\.]+')  # full stop duplicate
         
-    def apply(self, inp_path, out_path, encoding='utf8'):
+    def apply(self):
+        self.clean(*self.args)
+
+    def clean(self, inp_path, out_path, encoding='utf8'):
         """
         This function will clean the text.
         It will remain only korean characters, numbers, and some special symbols.

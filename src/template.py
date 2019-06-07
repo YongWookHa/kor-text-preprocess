@@ -1,20 +1,23 @@
 from .utils import Refine
 from tqdm import tqdm
+from os.path import normpath
 
 class Template(Refine):
-    def __init__(self, task):
+    def __init__(self, args):
         super().__init__()
-        if task == 'next_sentence_prediction':
+        if args.nsp:  # Next Sentence Prediction
             self.task = self.next_sentence_prediction
+            self.args = [normpath(args.input), normpath(args.output), args.min_seq, \
+                        args.sep, args.encoding]
         else:
-            print("{} is not available}".format(task))
+            print("{} is not available".format(args.task))
             raise ValueError
     
-    def apply(self, *args, **kwargs):
-        self.task(*args, **kwargs)
+    def apply(self):
+        self.task(*self.args)
 
     def next_sentence_prediction(self, inp_path, out_path, \
-                                min_seq=0, sep='다.', encoding='utf8'):
+                                min_seq=0, sep='. ', encoding='utf8'):
         """
         Read lines from input file and split sentences by [SEP]
         ex1) In:"A[SEP]B[SEP]C[SEP]D[SEP]\n" -> Out:"A[SEP]\tB[SEP]\nC[SEP]\tD[SEP]\n" 
