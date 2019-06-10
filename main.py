@@ -15,9 +15,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-i", "--input", \
-                        required=True, type=str, help="Input file dir")
+                        required=True, type=str, help="Input file name")
     parser.add_argument("-o", "--output", \
-                        type=str, default="ouput.txt", help="Output file dir")
+                        type=str, default="ouput.txt", help="Output file name")
     parser.add_argument("-opt", "--option", \
                         required=True, type=str, default=None, \
                         choices=opt_availables, help="Which option to apply.")
