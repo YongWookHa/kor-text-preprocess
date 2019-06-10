@@ -2,12 +2,12 @@
 Korean text data preprocess toolkit for NLP
 
 ## Overview
-This repository contains codes for korean text preprocessing. There are several options you can use for now. Other functions will be added sooner or later.
+This repository contains codes for Korean text preprocessing. There are several options you can use for now. Other functions will be added sooner or later.
 
 ### Options
-* `clean_kor` is for cleaning korean text data like 'sejong corpus'. It will trim the unnecessary character and symbols.
+* `clean_kor` is for cleaning Korean text data like 'sejong corpus'. It will trim the unnecessary character and symbols.
 
-* `mecab` is for morphological analysis. It provides `morphs`, `nouns`, `pos` functions for your korean text data and of course, each are selectable by additional option.
+* `mecab` is for morphological analysis. It provides `morphs`, `nouns`, `pos` functions for your Korean text data and of course, each are selectable by additional option.
 Check [KoNLPy](http://konlpy.org/en/latest/) out in detail.
 
 * `NLP` for text data templating for certain task. For now, `next_sentence_prediction` template is only available. It arranges two sentences in a line with seperator [SEP]. Please read the description in `src/tasks.py`. Other task templates will be added in the list. 

@@ -17,7 +17,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", \
                         required=True, type=str, help="Input file dir")
     parser.add_argument("-o", "--output", \
-                        type=str, default=None, help="Output file dir")
+                        type=str, default="ouput.txt", help="Output file dir")
     parser.add_argument("-opt", "--option", \
                         required=True, type=str, default=None, \
                         choices=opt_availables, help="Which option to apply.")
@@ -38,7 +38,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    os.makedirs(os.path.dirname(os.path.normpath(args.output)) or './', exist_ok=True)
+    filepath = os.path.dirname(os.path.normpath(args.output))
+    if  filepath != '':
+        os.makedirs(filepath, exist_ok=True)
 
     if args.option == 'tokenize':
         opt = Tokenizer(args)
