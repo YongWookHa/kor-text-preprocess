@@ -39,7 +39,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     filepath = os.path.dirname(os.path.normpath(args.output))
-    if  filepath != '':
+    if  filepath:
         os.makedirs(filepath, exist_ok=True)
 
     if args.option == 'tokenize':
